@@ -1,8 +1,10 @@
 # frozen_string_literal: true
+require './decorating' # Include the Nameable and Decorator classes from decorating.rb
 
 # Represents a classroom.
 class Classroom
-  attr_accessor :label, :students
+  attr_accessor :label
+  attr_reader :students
 
   def initialize(label)
     @label = label
@@ -11,54 +13,67 @@ class Classroom
 
   def add_student(student)
     students << student
-    student.classroom = self
+    student.assign_classroom(self)
   end
 end
 
 # Represents a Student.
-class Student
-  attr_accessor :name, :classroom
+class Student < Nameable
+  attr_accessor :name
 
   def initialize(name)
+    super()
     @name = name
     @classroom = nil
+  end
+
+  def assign_classroom(classroom)
+    @classroom = classroom
   end
 end
 
 # Represents a Book.
 class Book
   attr_accessor :title, :author
+  attr_reader :rentals
 
   def initialize(title, author)
     @title = title
     @author = author
+    @rentals = []
+  end
+
+  def add_rental(rental)
+    rentals << rental
+    rental.book = self
   end
 end
 
 # Represents a Rental.
 class Rental
-  attr_accessor :date, :book, :person
+  attr_accessor :date
+  attr_reader :book, :person
 
   def initialize(date, book, person)
     @date = date
     @book = book
     @person = person
+    book.add_rental(self) # Establish the relationship between book and rental
+    person.rent_book(self) # Establish the relationship between person and rental
   end
 end
 
 # Represents a Person.
-class Person
-  attr_accessor :name, :rentals
+class Person < Decorator
+  attr_accessor :name
 
   def initialize(name)
+    super()
     @name = name
-    @rentals = []
   end
 
-  def rent_book(book, date)
-    rental = Rental.new(date, book, self)
+  def rent_book(rental)
     rentals << rental
-    book.rentals << rental
   end
 end
 
@@ -90,4 +105,4 @@ puts rental.book.inspect # Output: #<Book:0x00007ff4a69531f0 @title="The Great G
 puts rental.person.inspect # Output: #<Person:0x00007ff4a6952f80 @name="John">
 
 # Check the person's rentals
-puts "Person: #{person.name}"
+puts "Person: #{person.correct_name}" # Use the correct_name method from the decorator
