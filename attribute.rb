@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require './decorating' # Include the Nameable and Decorator classes from decorating.rb
+
+require "./decorating" # Include the Nameable and Decorator classes from decorating.rb
 
 # Represents a classroom.
 class Classroom
