@@ -9,8 +9,9 @@ end
 
 # Represents a decorator for a Nameable object.
 class Decorator < Nameable
-  def initialize(age, parent_permission: true, name: "Unknown")
-    super(age, parent_permission: parent_permission, name: name)
+  def initialize(nameable)
+    super()
+    @nameable = nameable
   end
 
   def correct_name
