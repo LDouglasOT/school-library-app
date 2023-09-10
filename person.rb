@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 
 # Represents a nameable entity.
 class Nameable
