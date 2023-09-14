@@ -175,3 +175,4 @@ class App
     puts "Rental created successfully."
   end
 end
+
