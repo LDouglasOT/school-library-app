@@ -11,4 +11,13 @@ class Rental
     book.rentals << self
     person.rentals << self
   end
+
+  def self.save_rentals(filename, data = [], _people)
+    rental_store = []
+    data.each do |rentals|
+      rental_store << { date: rentals.date, book: rentals.book, person: rentals.person }
+    end
+    puts rental_store
+    File.write(filename, JSON.generate(rental_store))
+  end
 end

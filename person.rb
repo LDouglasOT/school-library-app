@@ -1,4 +1,5 @@
 require_relative 'nameable'
+require_relative 'rental'
 
 # Represents Person
 class Person < Nameable
@@ -33,5 +34,17 @@ class Person < Nameable
 
   def generate_id
     rand(1..1000)
+  end
+
+  private_class_method def self.write_file(filename, data = [])
+    person_store = []
+    data.each do |d|
+      person_store << if d.instance_of?(Student)
+                        { type: 'student', id: d.id, age: d.age, name: d.name, parent_permission: d.parent_permission }
+                      else
+                        { type: 'teacher', id: d.id, age: d.age, name: d.name, specialization: d.specialization }
+                      end
+    end
+    File.write(filename, JSON.generate(person_store))
   end
 end
