@@ -1,12 +1,14 @@
-require_relative '../person'
-require_relative '../teacher'
+# frozen_string_literal: true
+
+require_relative "../person"
+require_relative "../teacher"
 
 RSpec.describe Teacher do
-  describe '#initialize' do
-    it 'creates a Teacher object with the correct attributes' do
+  describe "#initialize" do
+    it "creates a Teacher object with the correct attributes" do
       age = 30
-      specialization = 'Mathematics'
-      name = 'John Doe'
+      specialization = "Mathematics"
+      name = "John Doe"
       parent_permission = true
 
       teacher = Teacher.new(age, specialization, name: name, parent_permission: parent_permission)
@@ -18,9 +20,9 @@ RSpec.describe Teacher do
     end
   end
 
-  describe '#can_use_services?' do
-    it 'returns true' do
-      teacher = Teacher.new(35, 'Science')
+  describe "#can_use_services?" do
+    it "returns true" do
+      teacher = Teacher.new(35, "Science")
 
       expect(teacher.can_use_services?).to be(true)
     end

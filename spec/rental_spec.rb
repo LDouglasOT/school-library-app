@@ -1,14 +1,16 @@
-require_relative '../rental'
-require_relative '../book'
-require_relative '../person'
+# frozen_string_literal: true
+
+require_relative "../rental"
+require_relative "../book"
+require_relative "../person"
 
 RSpec.describe Rental do
-  let(:date) { '2023-09-14' }
-  let(:book) { Book.new('Sample Book', 'Sample Author') }
-  let(:person) { Person.new(25, name: 'John Doe') }
+  let(:date) { "2023-09-14" }
+  let(:book) { Book.new("Sample Book", "Sample Author") }
+  let(:person) { Person.new(25, name: "John Doe") }
 
-  describe '#initialize' do
-    it 'creates a rental with the specified date, book, and person' do
+  describe "#initialize" do
+    it "creates a rental with the specified date, book, and person" do
       rental = Rental.new(date, book, person)
 
       expect(rental.date).to eq(date)
@@ -16,7 +18,7 @@ RSpec.describe Rental do
       expect(rental.person).to eq(person)
     end
 
-    it 'adds the rental to the book and person' do
+    it "adds the rental to the book and person" do
       rental = Rental.new(date, book, person)
 
       expect(book.rentals).to include(rental)
@@ -24,14 +26,14 @@ RSpec.describe Rental do
     end
   end
 
-  describe '.save_rentals' do
-    it 'saves rentals data to a file in JSON format' do
+  describe ".save_rentals" do
+    it "saves rentals data to a file in JSON format" do
       # Stub the file writing process
       allow(File).to receive(:write)
 
       rentals = [Rental.new(date, book, person)]
 
-      filename = 'test_rentals.json'
+      filename = "test_rentals.json"
       Rental.save_rentals(filename, rentals)
 
       # Expect the File.write method to be called
