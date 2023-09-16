@@ -16,6 +16,8 @@ RSpec.describe Classroom do
       # Stub the student's classroom= method to avoid unexpected messages
       allow(student).to receive(:classroom=)
 
+      classroom.add_student(student)
+
       # Check the length of the students array
       expect(classroom.students.length).to eq(1)
 
